@@ -13,7 +13,6 @@
 int snakeX[MAX_LENGTH];
 int snakeY[MAX_LENGTH];
 int length = 1;
-
 int i, j, height = 20, width = 20;
 int gameover, score;
 int x, y, fruitx, fruity, flag;
