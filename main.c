@@ -8,7 +8,6 @@
 #include <ncurses.h>
 #include <unistd.h>
 #endif
-
 #define MAX_LENGTH 100
 
 int snakeX[MAX_LENGTH];
