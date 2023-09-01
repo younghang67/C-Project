@@ -17,7 +17,22 @@ int i, j, height = 20, width = 20;
 int gameover, score;
 int x, y, fruitx, fruity, flag;
 
-// Function to generate the fruit within the boundary
+// Function to wait for user input
+#ifdef _WIN32
+void waitForInput()
+{
+    printf("\nPress any key to exit...");
+    _getch();
+}
+#else
+void waitForInput()
+{
+    printf("\nPress Enter to exit...");
+    getchar(); 
+}
+#endif
+
+// generate the fruit within the boundary
 void setup()
 {
     gameover = 0;
@@ -34,7 +49,7 @@ void setup()
     score = 0;
 }
 
-// Function to draw the boundaries
+//  draw the boundaries
 void draw()
 {
 #ifdef _WIN32
@@ -66,7 +81,7 @@ void draw()
                 if (!isSnakeSegment)
                 {
                     if (i == x && j == y)
-                        printf("0");
+                        printf("o");
                     else if (i == fruitx && j == fruity)
                         printf("*");
                     else
@@ -81,7 +96,7 @@ void draw()
     printf("press X to quit the game\n");
 }
 
-// Function to take the input
+// take the input
 void input()
 {
 #ifdef _WIN32
@@ -128,8 +143,8 @@ void input()
     }
 #endif
 }
+// logic of snake movement 
 
-// Function for the logic behind each movement
 void logic()
 {
 #ifdef _WIN32
@@ -138,6 +153,8 @@ void logic()
     usleep(10000);
 #endif
 
+    int prevX = snakeX[0];
+    int prevY = snakeY[0];
     switch (flag)
     {
     case 1:
@@ -179,6 +196,10 @@ void logic()
     }
     snakeX[0] = x;
     snakeY[0] = y;
+
+    // Restore the position of the tail
+    snakeX[length - 1] = prevX;
+    snakeY[length - 1] = prevY;
 }
 
 // Driver Code
@@ -212,6 +233,12 @@ int main()
     endwin();
 #endif
 
+    // Wait for user input before exiting
+#ifdef _WIN32
+    waitForInput();
+#else
+    waitForInput();
+#endif
+
     return 0;
 }
-
